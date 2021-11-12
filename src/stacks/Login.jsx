@@ -1,28 +1,56 @@
-import React from  "react"; 
-import { Center, Text, View ,Input, Icon, Stack} from "native-base";
-import { MaterialIcons } from "@expo/vector-icons"
+import React, { useState, useRef, useEffect } from "react";
+import { Center, Stack, Button, Box } from "native-base";
+import PhoneInput from "react-native-phone-number-input";
+import { Text, Alert } from 'react-native';
+import { PhoneSchema, validateInput } from "../utils/utils";
+import DialogBox from "../components/ModalBox";
+import { getAuth, RecaptchaVerifier } from "firebase/auth";
 
-const  Login = () =>{
-    return <Center bg="#fff" flex={1} >
-        <Text >login</Text>
-        
-        <Input
-        w={{
-          base: "75%",
-          md: "25%",
+
+
+const Login = ({ navigation }) => {
+  console.log({navigation})
+  
+  useEffect(() => {
+    const auth = getAuth();
+    // recaptchaVerifier = new RecaptchaVerifier('rechapta', {}, auth);
+},[])
+  
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+    const [open, setOpen] = useState(false);
+  console.log({ phone })
+  const phoneInput = useRef("");
+
+  const handle = () => {
+    setOpen(pre => !pre)
+  };
+  
+  return <> 
+      <Center paddingTop="20">
+          <Stack space="2">
+       <PhoneInput
+        TouchableOpacity={true}
+        ref={phoneInput}
+        defaultValue={phone}
+        defaultCode="PK"
+        onChangeFormattedText={(v) => {
+          setPhone(v);
+          validateInput(PhoneSchema, "phone", v, setPhoneError)
         }}
-        keyboardType="number-pad"
-        InputLeftElement={
-          <Icon
-            as={<MaterialIcons name="phone" />}
-            size={5}
-            ml="2"
-            color="muted.400"
-          />
-        }
-        placeholder="Phone Number"
-      />
-    </Center>
+        withDarkTheme
+        withShadow
+        autoFocus
+        />
+      <Text style={{color: "red"}}>{phoneError}</Text>
+      <Box id="rechapta"></Box>
+      <Button disabled={!!phoneError || !phone} bgColor="#6200ee" size="lg" marginTop="4" onPress={() =>{ handle()}} >Login</Button>
+    </Stack>
+  </Center>
+      <DialogBox open={open} handle={handle} nav={(nav)=>{
+        navigation.navigate(nav)}}/> 
+  </>
 }
+
 
 export default Login;

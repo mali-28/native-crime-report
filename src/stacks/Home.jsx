@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
             />
             <Button 
             backgroundColor="#6200ee" 
-            onPress={() => navigation.navigate('login')}
+            onPress={() => {navigation.navigate('login')}}
             size="lg" width={300}>Login</Button>
            </Stack>
         </Center>

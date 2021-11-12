@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:946541924723:android:3e3cd04f3b6ad067d1b506",
+        "mobilesdk_app_id": "1:946541924723:android:a83a309a10b0f2e6d1b506",
         "android_client_info": {
-          "package_name": "native.crimereport"
+          "package_name": "com.geeks"
         }
       },
       "oauth_client": [
